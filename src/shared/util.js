@@ -103,11 +103,9 @@ export function toNumber (val: string): number | string {
 /**
  * Make a map and return a function for checking if a key
  * is in that map.
+ * 创建一个map并返回一个函数来检查是否有键在map上
  */
-export function makeMap (
-  str: string,
-  expectsLowerCase?: boolean
-): (key: string) => true | void {
+export function makeMap (str: string,expectsLowerCase?: boolean): (key: string) => true | void {
   const map = Object.create(null)
   const list: Array<string> = str.split(',')
   for (let i = 0; i < list.length; i++) {
@@ -120,11 +118,13 @@ export function makeMap (
 
 /**
  * Check if a tag is a built-in tag.
+ * 检查标签是否是内置标签
  */
 export const isBuiltInTag = makeMap('slot,component', true)
 
 /**
  * Check if an attribute is a reserved attribute.
+ * 检查属性是否为保留属性
  */
 export const isReservedAttribute = makeMap('key,ref,slot,slot-scope,is')
 
@@ -150,6 +150,7 @@ export function hasOwn (obj: Object | Array<*>, key: string): boolean {
 
 /**
  * Create a cached version of a pure function.
+ * 创建缓存版本的纯函数
  */
 export function cached<F: Function> (fn: F): F {
   const cache = Object.create(null)
@@ -161,6 +162,7 @@ export function cached<F: Function> (fn: F): F {
 
 /**
  * Camelize a hyphen-delimited string.
+ * 使连字符分隔的字符串驼峰化
  */
 const camelizeRE = /-(\w)/g
 export const camelize = cached((str: string): string => {
@@ -169,6 +171,7 @@ export const camelize = cached((str: string): string => {
 
 /**
  * Capitalize a string.
+ * 利用一个字符串
  */
 export const capitalize = cached((str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -176,6 +179,7 @@ export const capitalize = cached((str: string): string => {
 
 /**
  * Hyphenate a camelCase string.
+ * 用连字符连接驼峰线
  */
 const hyphenateRE = /\B([A-Z])/g
 export const hyphenate = cached((str: string): string => {
@@ -215,6 +219,7 @@ export const bind = Function.prototype.bind
 
 /**
  * Convert an Array-like object to a real Array.
+ * 将类似数组的对象转换为实际数组
  */
 export function toArray (list: any, start?: number): Array<any> {
   start = start || 0
@@ -228,6 +233,7 @@ export function toArray (list: any, start?: number): Array<any> {
 
 /**
  * Mix properties into target object.
+ * 将属性混合到目标对象中
  */
 export function extend (to: Object, _from: ?Object): Object {
   for (const key in _from) {
@@ -238,6 +244,7 @@ export function extend (to: Object, _from: ?Object): Object {
 
 /**
  * Merge an Array of Objects into a single Object.
+ * 将一个对象数组合并到一个对象中。
  */
 export function toObject (arr: Array<any>): Object {
   const res = {}
@@ -272,6 +279,7 @@ export const identity = (_: any) => _
 
 /**
  * Generate a string containing static keys from compiler modules.
+ * 从编译器模块生成包含静态键的字符串。
  */
 export function genStaticKeys (modules: Array<ModuleOptions>): string {
   return modules.reduce((keys, m) => {
@@ -281,7 +289,9 @@ export function genStaticKeys (modules: Array<ModuleOptions>): string {
 
 /**
  * Check if two values are loosely equal - that is,
+ * 检查两个值是否大致相等——也就是说
  * if they are plain objects, do they have the same shape?
+ * 如果它们是普通的对象，它们有相同的形状吗?
  */
 export function looseEqual (a: any, b: any): boolean {
   if (a === b) return true
@@ -322,6 +332,7 @@ export function looseEqual (a: any, b: any): boolean {
  * Return the first index at which a loosely equal value can be
  * found in the array (if value is a plain object, the array must
  * contain an object of the same shape), or -1 if it is not present.
+ * 返回可以在数组中找到松散相等值的第一个索引(如果值是普通对象，则数组必须包含相同形状的对象)，如果不存在-1索引，则返回-1索引。
  */
 export function looseIndexOf (arr: Array<mixed>, val: mixed): number {
   for (let i = 0; i < arr.length; i++) {
@@ -332,6 +343,7 @@ export function looseIndexOf (arr: Array<mixed>, val: mixed): number {
 
 /**
  * Ensure a function is called only once.
+ * 确保一个函数只被调用一次
  */
 export function once (fn: Function): Function {
   let called = false
